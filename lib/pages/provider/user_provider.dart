@@ -40,6 +40,19 @@ class UserProvider with ChangeNotifier {
   int _coins = 200;
   int _streak = 3;
 
+  // ------------------ Test Progress ------------------
+  /// Each test has details like:
+  /// {
+  ///   'unlocked': bool,
+  ///   'selectedSubject': String?,
+  ///   'marks': int,
+  ///   'questions': int,
+  ///   'coins': int,
+  ///   'streak': int,
+  ///   'rank': int
+  /// }
+  final Map<String, Map<String, dynamic>> _testData = {};
+
   // ------------------ Getters ------------------
   String? get firstName => _firstName;
   String? get lastName => _lastName;
@@ -72,6 +85,8 @@ class UserProvider with ChangeNotifier {
   int get trophies => _trophies;
   int get coins => _coins;
   int get streak => _streak;
+
+  Map<String, Map<String, dynamic>> get testData => _testData;
 
   // ------------------ Setters ------------------
   void setName(String fName, String lName) {
@@ -143,9 +158,8 @@ class UserProvider with ChangeNotifier {
   }
 
   bool get hasCustomProfileImage =>
-    (_profileImagePath != null && _profileImagePath!.isNotEmpty) ||
-    (_profileImageBytes != null);
-    
+      (_profileImagePath != null && _profileImagePath!.isNotEmpty) ||
+      (_profileImageBytes != null);
 
   void setLearningGoal(String goal, int minutes) {
     _learningGoal = goal;
@@ -198,6 +212,72 @@ class UserProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  // ------------------ Test Management ------------------
+
+  /// Initialize test data — resets all except first test unlocked
+  void initializeTests(List<String> testNames) {
+    _testData.clear();
+    for (int i = 0; i < testNames.length; i++) {
+      _testData[testNames[i]] = {
+        'unlocked': i == 0, // first test unlocked
+        'selectedSubject': null,
+        'marks': 0,
+        'questions': 0,
+        'coins': 0,
+        'streak': 0,
+        'rank': 0,
+      };
+    }
+    notifyListeners();
+  }
+
+  /// Unlock a test (deduct coins)
+  void unlockTest(String testName, int cost) {
+    if (_coins >= cost) {
+      _coins -= cost;
+      _testData[testName]?['unlocked'] = true;
+      notifyListeners();
+    }
+  }
+
+  /// Set subject for test
+  void setSelectedSubject(String testName, String? subject) {
+    if (_testData.containsKey(testName)) {
+      _testData[testName]!['selectedSubject'] = subject;
+      notifyListeners();
+    }
+  }
+
+  /// Update test performance
+  void updateTestStats({
+    required String testName,
+    required int marks,
+    required int questions,
+    required int coins,
+    required int streak,
+    required int rank,
+  }) {
+    if (_testData.containsKey(testName)) {
+      _testData[testName] = {
+        ..._testData[testName]!,
+        'marks': marks,
+        'questions': questions,
+        'coins': coins,
+        'streak': streak,
+        'rank': rank,
+      };
+      notifyListeners();
+    }
+  }
+
+  bool isTestUnlocked(String testName) =>
+      _testData[testName]?['unlocked'] ?? false;
+
+  String? getSelectedSubject(String testName) =>
+      _testData[testName]?['selectedSubject'];
+
+  Map<String, dynamic>? getTestStats(String testName) => _testData[testName];
+
   // ------------------ Helpers ------------------
   int _calculateAge(DateTime dob) {
     final now = DateTime.now();
@@ -241,6 +321,7 @@ class UserProvider with ChangeNotifier {
     _trophies = 5;
     _coins = 200;
     _streak = 3;
+    _testData.clear();
 
     notifyListeners();
   }

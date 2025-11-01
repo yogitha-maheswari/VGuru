@@ -120,10 +120,12 @@ import 'package:vguru/pages/subjects/1st%20to%2010th/social/history/history_page
 import 'package:vguru/pages/subjects/1st%20to%2010th/social/social.dart';
 import 'package:vguru/pages/subjects/LKG%20and%20UKG/coloring/coloring_page_LKG.dart';
 import 'package:vguru/pages/subjects/LKG%20and%20UKG/coloring/coloring_page_UKG.dart';
+import 'package:vguru/pages/subjects/LKG%20and%20UKG/coloring/say_color_page.dart';
 import 'package:vguru/pages/subjects/LKG%20and%20UKG/fun%20activities/fun_activities_page_LKG.dart';
 import 'package:vguru/pages/subjects/LKG%20and%20UKG/fun%20activities/fun_activities_page_UKG.dart';
 import 'package:vguru/pages/subjects/LKG%20and%20UKG/matching%20games/matching_games_page_LKG.dart';
 import 'package:vguru/pages/subjects/LKG%20and%20UKG/matching%20games/matching_games_page_UKG%20.dart';
+import 'package:vguru/pages/subjects/LKG%20and%20UKG/matching%20games/trace_letters_page.dart';
 import 'package:vguru/pages/subjects/LKG%20and%20UKG/poems/poems_page_LKG.dart';
 import 'package:vguru/pages/subjects/LKG%20and%20UKG/poems/poems_page_UKG.dart';
 import 'package:vguru/pages/subjects/LKG%20and%20UKG/shapes/shapes_page_LKG.dart';
@@ -360,6 +362,12 @@ class VGuruApp extends StatelessWidget {
 
         // Quiz
         '/quiz': (context) => const QuizScreen(),
+
+        // Test
+
+        // Games
+        '/trace': (context) => const TraceLettersPage(),
+        '/color': (context) => const SayColorPage(),
 
       },
       title: 'VGuru',

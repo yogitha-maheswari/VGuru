@@ -81,7 +81,7 @@ class Learn extends StatelessWidget {
                       SubjectCard(
                         subject: "Coloring",
                         imagePath: "assets/images/coloring.png",
-                        route: "/coloring$classGrade",
+                        route: "/color",
                       ),
                       SubjectCard(
                         subject: "Fun Activities",
@@ -96,7 +96,7 @@ class Learn extends StatelessWidget {
                       SubjectCard(
                         subject: "Matching Games",
                         imagePath: "assets/images/matching.png",
-                        route: "/matching$classGrade",
+                        route: "/trace",
                       ),
                       SubjectCard(
                         subject: "Poems",
