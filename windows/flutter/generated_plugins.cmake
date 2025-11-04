@@ -4,8 +4,7 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   file_selector_windows
-  flutter_tts
-  speech_to_text_windows
+  printing
   url_launcher_windows
 )
 

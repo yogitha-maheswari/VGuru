@@ -120,12 +120,10 @@ import 'package:vguru/pages/subjects/1st%20to%2010th/social/history/history_page
 import 'package:vguru/pages/subjects/1st%20to%2010th/social/social.dart';
 import 'package:vguru/pages/subjects/LKG%20and%20UKG/coloring/coloring_page_LKG.dart';
 import 'package:vguru/pages/subjects/LKG%20and%20UKG/coloring/coloring_page_UKG.dart';
-import 'package:vguru/pages/subjects/LKG%20and%20UKG/coloring/say_color_page.dart';
 import 'package:vguru/pages/subjects/LKG%20and%20UKG/fun%20activities/fun_activities_page_LKG.dart';
 import 'package:vguru/pages/subjects/LKG%20and%20UKG/fun%20activities/fun_activities_page_UKG.dart';
 import 'package:vguru/pages/subjects/LKG%20and%20UKG/matching%20games/matching_games_page_LKG.dart';
 import 'package:vguru/pages/subjects/LKG%20and%20UKG/matching%20games/matching_games_page_UKG%20.dart';
-import 'package:vguru/pages/subjects/LKG%20and%20UKG/matching%20games/trace_letters_page.dart';
 import 'package:vguru/pages/subjects/LKG%20and%20UKG/poems/poems_page_LKG.dart';
 import 'package:vguru/pages/subjects/LKG%20and%20UKG/poems/poems_page_UKG.dart';
 import 'package:vguru/pages/subjects/LKG%20and%20UKG/shapes/shapes_page_LKG.dart';
@@ -133,6 +131,7 @@ import 'package:vguru/pages/subjects/LKG%20and%20UKG/shapes/shapes_page_UKG.dart
 import 'package:vguru/pages/terms%20of%20service/help_page.dart';
 import 'package:vguru/pages/terms%20of%20service/privacy_page.dart';
 import 'package:vguru/pages/terms%20of%20service/terms_page.dart';
+import 'package:vguru/pages/test/test_completion_page.dart';
 import 'package:vguru/pages/video/video_screen.dart';
 import 'package:vguru/theme%20and%20sound/sound_manager.dart';
 import 'package:vguru/theme%20and%20sound/theme.dart';
@@ -365,11 +364,29 @@ class VGuruApp extends StatelessWidget {
 
         // Test
 
+        
+        
+
         // Games
-        '/trace': (context) => const TraceLettersPage(),
-        '/color': (context) => const SayColorPage(),
 
       },
+
+      onGenerateRoute: (settings) {
+        if (settings.name == '/test_completion') {
+          final args = settings.arguments as Map<String, dynamic>? ?? {};
+          return MaterialPageRoute(
+            builder: (context) => TestCompletionPage(
+              questions: args['questions'] ?? [],
+              selectedAnswers: args['selectedAnswers'] ?? [],
+              screenSwitches: args['screenSwitches'] ?? 0,
+              timeLeft: args['timeLeft'],
+            ),
+          );
+        }
+        return null;
+      },
+
+
       title: 'VGuru',
       theme: AppThemes.lightTheme,
       darkTheme: AppThemes.darkTheme,

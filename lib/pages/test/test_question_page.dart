@@ -184,8 +184,8 @@ class _TestQuestionPageState extends State<TestQuestionPage>
           actions: [
             Container(
               margin: const EdgeInsets.only(right: 18, top: 8, bottom: 8),
-              width: 100, // ⬅️ slightly wider
-              height: 50, // ⬅️ taller
+              width: 100,
+              height: 50,
               decoration: BoxDecoration(
                 color: theme.colorScheme.surface,
                 borderRadius: BorderRadius.circular(12),

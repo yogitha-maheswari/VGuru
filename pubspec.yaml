@@ -63,11 +63,11 @@ dependencies:
 
   fl_chart: ^0.71.0
 
-  speech_to_text: ^7.0.0
+  pdf: ^3.11.1
+  
+  printing: ^5.11.1
 
-  lottie: ^3.1.0
-
-  flutter_tts: ^4.2.3
+  open_file: ^3.3.2
 
   
 

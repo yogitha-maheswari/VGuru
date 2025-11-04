@@ -1,6 +1,7 @@
 // lib/pages/test/test_result_page.dart
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:vguru/utils/pdf_report_util.dart';
 
 class TestResultPage extends StatefulWidget {
   final List<Map<String, dynamic>> questions;
@@ -123,7 +124,18 @@ class _TestResultPageState extends State<TestResultPage> {
         elevation: 0,
         leading: IconButton(
           icon: Icon(Icons.arrow_back_rounded, color: theme.colorScheme.onSurface),
-          onPressed: () => Navigator.pop(context),
+          onPressed: () {
+            Navigator.pushReplacementNamed(
+              context,
+              '/test_completion',
+              arguments: {
+                'questions': widget.questions,
+                'selectedAnswers': widget.selectedAnswers,
+                'screenSwitches': widget.screenSwitches,
+                'timeLeft': widget.timeLeft,
+              },
+            );
+          },
         ),
         title: const Text("Test Result"),
       ),
@@ -248,7 +260,7 @@ class _TestResultPageState extends State<TestResultPage> {
                 // TEST STATUS
                 _sectionCard(
                   theme,
-                  title: "Test Status",
+                  title: "Malpractice Status",
                   child: Row(
                     children: [
                       Icon(
@@ -361,8 +373,14 @@ class _TestResultPageState extends State<TestResultPage> {
                           ),
                           const SizedBox(height: 12),
                           buildSecondaryButton(
-                            onPressed: () => Navigator.pop(context),
-                            label: "REVIEW QUESTIONS",
+                            onPressed: () async {
+                              await PdfReportUtil.generateAndPrintReport(
+                                context: context,
+                                results: results,
+                                testValid: _testValid,
+                              );
+                            },
+                            label: "DOWNLOAD REPORT",
                           ),
                         ],
                       );
@@ -372,8 +390,15 @@ class _TestResultPageState extends State<TestResultPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         buildSecondaryButton(
-                          onPressed: () => Navigator.pop(context),
-                          label: "REVIEW QUESTIONS",
+                          onPressed: () async {
+                            await PdfReportUtil.generateAndPrintReport(
+                              context: context,
+                              results: results,
+                              testValid: _testValid,
+                              timeLeft: widget.timeLeft,
+                            );
+                          },
+                          label: "DOWNLOAD REPORT",
                         ),
                         buildPrimaryButton(
                           onPressed: () {
